@@ -1,23 +1,20 @@
 {
   "name": "cg-interiors",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Campos Goldberg Interiors — static site + Cloudflare Pages inquiry backend",
+  "type": "module",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "wrangler pages dev .",
+    "deploy": "wrangler pages deploy .",
+    "db:schema:remote": "wrangler d1 execute cg-interiors-inquiries --remote --file=./schema.sql",
+    "db:list": "wrangler d1 execute cg-interiors-inquiries --remote --command \"SELECT id, created_at, name, email, project_type, status FROM inquiries ORDER BY id DESC LIMIT 25\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cthlee/cg-interiors.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/cthlee/cg-interiors/issues"
-  },
-  "homepage": "https://github.com/cthlee/cg-interiors#readme",
+  "license": "UNLICENSED",
   "devDependencies": {
     "wrangler": "^4.107.0"
   }
