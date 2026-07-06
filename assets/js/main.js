@@ -191,7 +191,7 @@
         if (window.turnstile) { try { window.turnstile.reset(); } catch (_) {} }
       }).catch(function () {
         btn.removeAttribute('disabled');
-        setStatus('err', 'Something went wrong sending your inquiry. Please email studio@camposgoldberg.com or try again in a moment.');
+        setStatus('err', 'Something went wrong sending your inquiry. Please email contact@camposgoldberg.com or try again in a moment.');
         if (window.turnstile) { try { window.turnstile.reset(); } catch (_) {} }
       });
     });

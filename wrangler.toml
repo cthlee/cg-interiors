@@ -16,8 +16,8 @@ database_id = "6c06fc7b-06b8-44aa-b613-0b6c45d7e0fe"
 # --- Non-secret config (safe to commit) ---
 # The sending identity must be on a domain you've verified in Resend.
 [vars]
-FROM_EMAIL = "CG Interiors <studio@camposgoldberg.com>"
-STUDIO_INBOX = "studio@camposgoldberg.com"
+FROM_EMAIL = "CG Interiors <contact@camposgoldberg.com>"
+STUDIO_INBOX = "isadoraterci@gmail.com"
 
 # --- Secrets: DO NOT put these here. Set them instead with:
 #   wrangler pages secret put RESEND_API_KEY

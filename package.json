@@ -1,0 +1,24 @@
+{
+  "name": "cg-interiors",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cthlee/cg-interiors.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/cthlee/cg-interiors/issues"
+  },
+  "homepage": "https://github.com/cthlee/cg-interiors#readme",
+  "devDependencies": {
+    "wrangler": "^4.107.0"
+  }
+}

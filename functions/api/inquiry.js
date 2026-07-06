@@ -75,11 +75,13 @@ export async function onRequestPost(context) {
   // 5 — Email (best-effort; never blocks the saved lead)
   let emailed = false;
   if (env.RESEND_API_KEY) {
-    const from = env.FROM_EMAIL || 'CG Interiors <onboarding@resend.dev>';
-    const studioInbox = env.STUDIO_INBOX || 'studio@camposgoldberg.com';
+    const from = env.FROM_EMAIL || 'CG Interiors <contact@camposgoldberg.com>';
+    const studioInbox = env.STUDIO_INBOX || 'isadoraterci@gmail.com';
+    // Public brand address (from within FROM_EMAIL) — where client replies land.
+    const publicEmail = (from.match(/<([^>]+)>/) || [, from])[1];
     const results = await Promise.allSettled([
       sendEmail(env.RESEND_API_KEY, {
-        from, to: data.email, reply_to: studioInbox,
+        from, to: data.email, reply_to: publicEmail,
         ...autoReplyEmail(data),
       }),
       sendEmail(env.RESEND_API_KEY, {
