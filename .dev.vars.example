@@ -1,0 +1,13 @@
+# Copy to `.dev.vars` for local `wrangler pages dev`. NEVER commit `.dev.vars`.
+# Cloudflare Turnstile "always passes" TEST keys are used by default for local dev.
+
+# Resend API key — get from https://resend.com/api-keys
+RESEND_API_KEY=re_your_key_here
+
+# Turnstile secret — TEST secret below always passes locally.
+# Real one: https://dash.cloudflare.com → Turnstile
+TURNSTILE_SECRET=1x0000000000000000000000000000000AA
+
+# Email identity (must be a Resend-verified domain in production)
+FROM_EMAIL=CG Interiors <onboarding@resend.dev>
+STUDIO_INBOX=your-personal@example.com

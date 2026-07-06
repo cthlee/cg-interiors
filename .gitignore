@@ -1,0 +1,10 @@
+# secrets & local env
+.dev.vars
+.env
+
+# cloudflare / wrangler
+.wrangler/
+node_modules/
+
+# os
+.DS_Store

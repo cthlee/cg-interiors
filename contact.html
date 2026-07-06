@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — CG Interiors | Campos Goldberg, New York City</title>
+  <meta name="description" content="Begin a project with Campos Goldberg Interiors. The studio is accepting a limited number of new residential and boutique commercial commissions.">
+  <meta name="theme-color" content="#FAF8F4">
+  <meta property="og:title" content="Contact — CG Interiors">
+  <meta property="og:description" content="Begin a project with Campos Goldberg Interiors, New York City.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="preload" href="assets/fonts/BodoniModa.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/Jost.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script src="assets/js/main.js" defer></script>
+  <!-- Cloudflare Turnstile (invisible bot filter). Swap data-sitekey in the form
+       for your real one; the test key below always passes during development. -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+
+  <div class="preloader" aria-hidden="true">
+    <div class="pre-mark">
+      <span class="wm-1">Campos Goldberg</span>
+      <span class="wm-2">Interiors — New York</span>
+    </div>
+  </div>
+  <div class="page-fade" aria-hidden="true"></div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="wordmark" href="index.html" aria-label="Campos Goldberg Interiors — home">
+        <span class="wm-1">Campos Goldberg</span>
+        <span class="wm-2">Interiors — New York</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="projects.html">Projects</a>
+        <a href="studio.html">Studio</a>
+        <a href="contact.html" class="is-active" aria-current="page">Contact</a>
+      </nav>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="menu-overlay" id="menu">
+    <nav aria-label="Menu">
+      <a class="menu-link" href="index.html"><sup>01</sup>Home</a>
+      <a class="menu-link" href="projects.html"><sup>02</sup>Projects</a>
+      <a class="menu-link" href="studio.html"><sup>03</sup>Studio</a>
+      <a class="menu-link" href="contact.html"><sup>04</sup>Contact</a>
+    </nav>
+    <div class="menu-foot">
+      <span class="label">New York City</span>
+      <a class="label" href="mailto:studio@cg-interiors.nyc">studio@cg-interiors.nyc</a>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <section class="page-head container">
+      <span class="label label--bronze" data-reveal>Contact</span>
+      <h1 data-reveal style="--d: 140ms">Begin a <span class="serif-i">project.</span></h1>
+      <p class="page-sub" data-reveal style="--d: 280ms">Tell us about your space, your timeline, and how you hope to live in it. The studio responds to every inquiry within two business days.</p>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container contact-grid">
+
+        <form class="contact-form" data-inquiry-form action="/api/inquiry" novalidate data-reveal>
+          <!-- Honeypot: hidden from people, tempting to bots. Leave empty. -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="f-company">Company</label>
+            <input id="f-company" name="company" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="f-name">Full Name <span class="req" aria-hidden="true">*</span></label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required aria-required="true">
+              <p class="error-msg" role="alert">Please share your name.</p>
+            </div>
+            <div class="field">
+              <label for="f-email">Email <span class="req" aria-hidden="true">*</span></label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required aria-required="true">
+              <p class="error-msg" role="alert">Please enter a valid email address.</p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field field-select">
+              <label for="f-type">Project Type <span class="req" aria-hidden="true">*</span></label>
+              <select id="f-type" name="type" required aria-required="true">
+                <option value="" selected disabled>Select one</option>
+                <option>Full Residence</option>
+                <option>Single Room / Partial</option>
+                <option>New Build</option>
+                <option>Boutique Commercial</option>
+                <option>Other</option>
+              </select>
+              <p class="error-msg" role="alert">Please choose a project type.</p>
+            </div>
+            <div class="field">
+              <label for="f-location">Project Location</label>
+              <input id="f-location" name="location" type="text" placeholder="e.g. Upper West Side, Sag Harbor">
+            </div>
+          </div>
+
+          <div class="field field-select">
+            <label for="f-budget">Anticipated Furnishing Budget</label>
+            <select id="f-budget" name="budget">
+              <option value="" selected disabled>Select a range (optional)</option>
+              <option>Under $250K</option>
+              <option>$250K — $500K</option>
+              <option>$500K — $1M</option>
+              <option>$1M +</option>
+            </select>
+            <p class="hint">Shared in confidence — it simply helps us scope the conversation.</p>
+          </div>
+
+          <div class="field">
+            <label for="f-message">About the Project <span class="req" aria-hidden="true">*</span></label>
+            <textarea id="f-message" name="message" required aria-required="true" minlength="20"></textarea>
+            <p class="hint">The rooms, the timeline, and anything you already know you love.</p>
+            <p class="error-msg" role="alert">Please tell us a little about the project (a few sentences).</p>
+          </div>
+
+          <!-- Turnstile: test sitekey (always passes). Replace with your real key for production. -->
+          <div class="cf-turnstile turnstile-widget" data-sitekey="1x00000000000000000000AA" data-theme="light" data-size="flexible"></div>
+
+          <button class="btn-solid" type="submit">Send Inquiry
+            <svg class="arrow" viewBox="0 0 22 16" aria-hidden="true"><path d="M0 8h20M14 2l6 6-6 6"/></svg>
+          </button>
+          <p class="form-status" aria-live="polite"></p>
+        </form>
+
+        <aside class="contact-side">
+          <div data-reveal style="--d: 150ms">
+            <span class="label" style="display:block; margin-bottom: 0.75rem; color: var(--taupe)">Studio</span>
+            <p>42 Howard Street, Floor 4<br>New York, NY 10013</p>
+          </div>
+          <div data-reveal style="--d: 250ms">
+            <span class="label" style="display:block; margin-bottom: 0.75rem; color: var(--taupe)">Inquiries</span>
+            <p><a href="mailto:studio@cg-interiors.nyc" style="text-decoration: underline; text-underline-offset: 4px">studio@cg-interiors.nyc</a><br><a href="tel:+12125550184">+1 212 555 0184</a></p>
+          </div>
+          <div data-reveal style="--d: 350ms">
+            <span class="label" style="display:block; margin-bottom: 0.75rem; color: var(--taupe)">Press &amp; Collaborations</span>
+            <p><a href="mailto:press@cg-interiors.nyc" style="text-decoration: underline; text-underline-offset: 4px">press@cg-interiors.nyc</a></p>
+          </div>
+          <div data-reveal="curtain">
+            <div class="frame frame--45">
+            <img src="assets/img/contact-side.svg" alt="The Howard Street studio — placeholder" width="1200" height="1500" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="foot-mark">Campos Goldberg <span class="serif-i">Interiors</span></p>
+      <div class="foot-grid">
+        <div class="foot-col">
+          <span class="label">Studio</span>
+          <p>42 Howard Street, Floor 4<br>New York, NY 10013</p>
+        </div>
+        <div class="foot-col">
+          <span class="label">Inquiries</span>
+          <p><a href="mailto:studio@cg-interiors.nyc">studio@cg-interiors.nyc</a><br><a href="tel:+12125550184">+1 212 555 0184</a></p>
+        </div>
+        <div class="foot-col">
+          <span class="label">Follow</span>
+          <p><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a><br><a href="https://pinterest.com" target="_blank" rel="noopener">Pinterest</a></p>
+        </div>
+        <div class="foot-col">
+          <span class="label">Navigate</span>
+          <p><a href="projects.html">Projects</a><br><a href="studio.html">Studio</a><br><a href="contact.html">Contact</a></p>
+        </div>
+      </div>
+      <div class="foot-base">
+        <span>© <span data-year>2026</span> Campos Goldberg Interiors LLC</span>
+        <span>New York City</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
