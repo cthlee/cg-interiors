@@ -160,15 +160,15 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
 .wordmark .wm-1 {
   display: block;
   font-family: var(--font-text); font-weight: 400;
-  font-size: 0.8125rem; letter-spacing: var(--track-wide); text-transform: uppercase;
+  font-size: 1.0625rem; letter-spacing: var(--track-wide); text-transform: uppercase;
   color: var(--ink);
 }
 .wordmark .wm-2 {
   display: block;
-  font-size: 0.5625rem; font-weight: 400;
+  font-size: 0.6875rem; font-weight: 400;
   letter-spacing: 0.42em; text-transform: uppercase;
   color: var(--stone);
-  margin-top: 0.2rem;
+  margin-top: 0.28rem;
 }
 
 /* nav */
@@ -620,6 +620,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
 }
 .services-list li:last-child { border-bottom: 1px solid var(--hairline); }
 .services-list .label { flex: none; color: var(--taupe); }
+.services-list--italic li > span:first-child { font-style: italic; }
 
 /* ============================================================
    CONTACT
