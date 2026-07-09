@@ -153,7 +153,7 @@ function shell(inner) {
 ${inner}
 </td></tr>
 <tr><td style="padding:22px 44px;background:#1C1914;color:#FAF8F4;font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:1px;">
-42 Howard Street, Floor 4 · New York, NY&nbsp;10013
+<a href="https://camposgoldberg.com" style="color:#FAF8F4;text-decoration:none;">camposgoldberg.com</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="https://www.instagram.com/cgi.nteriors/" style="color:#FAF8F4;text-decoration:none;">Instagram</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="https://www.pinterest.com/camposgoldberg/" style="color:#FAF8F4;text-decoration:none;">Pinterest</a>
 </td></tr>
 </table></body></html>`;
 }
@@ -206,7 +206,7 @@ What you shared:
 
 With warm regards,
 Campos Goldberg Interiors
-42 Howard Street, Floor 4, New York, NY 10013`;
+camposgoldberg.com · instagram.com/cgi.nteriors · pinterest.com/camposgoldberg`;
 }
 function studioAlertText(data, id) {
   return `New inquiry #${id}
