@@ -56,14 +56,28 @@ export async function onRequestPost(context) {
 
   // 4 — Persist (the lead is safe from here on)
   if (!env.DB) return json({ error: 'Server not configured.' }, 500);
+
+  // Rolling 24h rate: a prior inquiry from this email within the last day makes
+  // this submission a follow-up (different reply, still logged + studio-notified).
+  let isFollowUp = false;
+  try {
+    const prior = await env.DB.prepare(
+      `SELECT id FROM inquiries
+       WHERE lower(email) = lower(?) AND created_at > datetime('now', '-1 day')
+       LIMIT 1`
+    ).bind(data.email).first();
+    isFollowUp = !!prior;
+  } catch (_) { /* if the check fails, fall back to treating it as a first inquiry */ }
+
   let inquiryId;
   try {
     const res = await env.DB.prepare(
-      `INSERT INTO inquiries (name, email, project_type, location, budget, message, ip, user_agent)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT INTO inquiries (name, email, project_type, location, budget, message, status, ip, user_agent)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
     ).bind(
       data.name, data.email, data.type,
       data.location || null, data.budget || null, data.message,
+      isFollowUp ? 'follow_up' : 'new',
       request.headers.get('CF-Connecting-IP') || null,
       (request.headers.get('User-Agent') || '').slice(0, 300)
     ).run();
@@ -82,17 +96,17 @@ export async function onRequestPost(context) {
     const results = await Promise.allSettled([
       sendEmail(env.RESEND_API_KEY, {
         from, to: data.email, reply_to: publicEmail,
-        ...autoReplyEmail(data),
+        ...(isFollowUp ? followUpEmail(data) : autoReplyEmail(data)),
       }),
       sendEmail(env.RESEND_API_KEY, {
         from, to: studioInbox, reply_to: data.email,
-        ...studioAlertEmail(data, inquiryId),
+        ...(isFollowUp ? followUpStudioEmail(data, inquiryId) : studioAlertEmail(data, inquiryId)),
       }),
     ]);
     emailed = results.every((r) => r.status === 'fulfilled');
   }
 
-  return json({ ok: true, id: inquiryId, emailed }, 200);
+  return json({ ok: true, id: inquiryId, emailed, followUp: isFollowUp }, 200);
 }
 
 /* ---------- helpers ---------- */
@@ -189,6 +203,34 @@ ${row('Budget', esc(data.budget) || '—')}
 <p style="font-size:16px;line-height:1.7;margin:0;white-space:pre-wrap;">${esc(data.message)}</p>
 <p style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#A2988A;margin:26px 0 0;">Inquiry #${esc(id)} · reply directly to this email to reach ${esc(data.name.split(/\s+/)[0])}.</p>`;
   return { subject: `New inquiry — ${data.name} · ${data.type}`, html: shell(inner), text: studioAlertText(data, id) };
+}
+
+function followUpEmail(data) {
+  const first = esc((data.name.split(/\s+/)[0]) || 'there');
+  const inner = `
+<h1 style="font-size:28px;font-weight:normal;line-height:1.2;margin:0 0 20px;">Thank you for following up, ${first}.</h1>
+<p style="font-size:16px;line-height:1.7;margin:0 0 26px;">Your note has reached the studio and we&rsquo;re looking into it now — we&rsquo;ll be back in touch again very soon.</p>
+<div style="height:1px;background:#E4DED3;margin:28px 0;"></div>
+<p style="font-size:15px;line-height:1.7;margin:0;font-style:italic;color:#33302A;">With warm regards,<br>Campos Goldberg Interiors</p>`;
+  const text = `Thank you for following up, ${first}.\n\nYour note has reached the studio and we're looking into it now — we'll be back in touch again very soon.\n\nWith warm regards,\nCampos Goldberg Interiors`;
+  return { subject: 'Thank you for following up — Campos Goldberg Interiors', html: shell(inner), text };
+}
+
+function followUpStudioEmail(data, id) {
+  const first = esc(data.name.split(/\s+/)[0]);
+  const inner = `
+<h1 style="font-size:24px;font-weight:normal;line-height:1.2;margin:0 0 20px;">Follow-up received</h1>
+<p style="font-size:16px;line-height:1.7;margin:0 0 18px;"><strong>${esc(data.name)}</strong> submitted again within 24 hours — they&rsquo;re waiting to hear back.</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;">
+${row('Email', `<a href="mailto:${esc(data.email)}" style="color:#8A6335;">${esc(data.email)}</a>`)}
+${row('Project', esc(data.type))}
+</table>
+<div style="height:1px;background:#E4DED3;margin:22px 0;"></div>
+<p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#8A6335;margin:0 0 10px;">Their message</p>
+<p style="font-size:16px;line-height:1.7;margin:0;white-space:pre-wrap;">${esc(data.message)}</p>
+<p style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#A2988A;margin:26px 0 0;">Inquiry #${esc(id)} · follow-up · reply directly to reach ${first}.</p>`;
+  const text = `Follow-up received from ${data.name} (within 24h).\n\nEmail: ${data.email}\nProject: ${data.type}\n\nMessage:\n${data.message}\n\nInquiry #${id}`;
+  return { subject: `Follow-up — ${data.name} · ${data.type}`, html: shell(inner), text };
 }
 
 function row(label, value) {

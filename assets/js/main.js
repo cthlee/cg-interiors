@@ -187,7 +187,11 @@
       }).then(function (res) {
         if (!res.ok) throw new Error((res.data && res.data.error) || 'failed');
         form.reset();
-        setStatus('ok', 'Thank you — your inquiry has been received. You’ll have a note from us within minutes, and the studio will respond personally within two business days.');
+        if (res.data && res.data.followUp) {
+          setStatus('ok', 'Thank you for following up — the studio is looking into it and will be in touch again very soon.');
+        } else {
+          setStatus('ok', 'Thank you — your inquiry has been received. You’ll have a note from us within minutes, and the studio will respond personally within two business days.');
+        }
         if (window.turnstile) { try { window.turnstile.reset(); } catch (_) {} }
       }).catch(function () {
         btn.removeAttribute('disabled');
