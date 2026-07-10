@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "wrangler pages dev .",
-    "deploy": "wrangler pages deploy .",
+    "deploy": "wrangler pages deploy . --branch production --commit-dirty=true",
     "db:schema:remote": "wrangler d1 execute cg-interiors-inquiries --remote --file=./schema.sql",
     "db:list": "wrangler d1 execute cg-interiors-inquiries --remote --command \"SELECT id, created_at, name, email, project_type, status FROM inquiries ORDER BY id DESC LIMIT 25\""
   },
