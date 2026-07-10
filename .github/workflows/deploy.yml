@@ -1,0 +1,28 @@
+name: Deploy to Cloudflare Pages
+
+# Publishes the site to camposgoldberg.com automatically on every push to main.
+# One-time setup required — add two repository secrets (Settings → Secrets and
+# variables → Actions):
+#   CLOUDFLARE_API_TOKEN   — a token with the "Cloudflare Pages: Edit" permission
+#   CLOUDFLARE_ACCOUNT_ID  — e3d12752c8492b2736403e0cbf32308f
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}   # lets you run it manually from the Actions tab
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Publish to Cloudflare Pages (production)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy . --project-name=cg-interiors --branch=production
